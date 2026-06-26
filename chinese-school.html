@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Курсы китайского языка в Астане и Алматы</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #C0392B;
+    --red-dark: #96281B;
+    --gold: #D4A843;
+    --ink: #1A1A1A;
+    --ink-soft: #3D3D3D;
+    --ink-muted: #6B6B6B;
+    --paper: #FAF8F3;
+    --white: #FFFFFF;
+    --section-bg: #F3F0EA;
+    --border: #E0D9CC;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--ink); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(26,26,26,0.97); backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 64px;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo-char { font-family: 'Noto Serif SC', serif; font-size: 28px; color: var(--red); line-height: 1; }
+  .nav-logo-text { color: var(--white); font-size: 15px; font-weight: 600; letter-spacing: 0.05em; }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 13px; letter-spacing: 0.04em; transition: color .2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-phone { color: var(--gold); font-size: 13px; font-weight: 600; letter-spacing: 0.03em; text-decoration: none; }
+  .nav-phone:hover { color: var(--white); }
+  .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .burger span { width: 24px; height: 2px; background: white; display: block; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; background: var(--ink);
+    display: flex; align-items: center; position: relative; overflow: hidden;
+    padding: 100px 40px 60px;
+  }
+  .hero-bg-char {
+    position: absolute; right: -40px; top: 50%; transform: translateY(-50%);
+    font-family: 'Noto Serif SC', serif; font-size: clamp(300px, 40vw, 520px);
+    color: rgba(192,57,43,0.08); line-height: 1; user-select: none; pointer-events: none;
+    animation: float 8s ease-in-out infinite;
+  }
+  @keyframes float { 0%,100%{transform:translateY(-50%) translateX(0)} 50%{transform:translateY(-52%) translateX(-10px)} }
+  .hero-content { max-width: 680px; position: relative; z-index: 2; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(212,168,67,0.15); border: 1px solid rgba(212,168,67,0.4);
+    border-radius: 4px; padding: 6px 14px; margin-bottom: 32px;
+    color: var(--gold); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 6vw, 72px);
+    color: var(--white); line-height: 1.1; margin-bottom: 12px;
+  }
+  .hero-title em { color: var(--red); font-style: normal; }
+  .hero-subtitle-zh {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(14px, 2vw, 18px); color: rgba(255,255,255,0.35);
+    letter-spacing: 0.2em; margin-bottom: 24px;
+  }
+  .hero-desc { color: rgba(255,255,255,0.65); font-size: 17px; line-height: 1.7; margin-bottom: 40px; max-width: 520px; }
+  .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--red); color: white; padding: 14px 32px; border: none;
+    font-size: 14px; font-weight: 600; letter-spacing: 0.05em; cursor: pointer;
+    border-radius: 3px; text-decoration: none; transition: background .2s, transform .15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
+  .btn-outline {
+    border: 1px solid rgba(255,255,255,0.3); color: white; padding: 14px 32px;
+    font-size: 14px; font-weight: 500; cursor: pointer; border-radius: 3px;
+    text-decoration: none; transition: border-color .2s, background .2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.05); }
+  .hero-stats {
+    display: flex; gap: 48px; margin-top: 56px;
+    border-top: 1px solid rgba(255,255,255,0.1); padding-top: 40px;
+  }
+  .hero-stat-num { font-size: 36px; font-weight: 700; color: var(--white); line-height: 1; }
+  .hero-stat-num span { color: var(--red); }
+  .hero-stat-label { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 6px; letter-spacing: 0.04em; }
+
+  /* COURSES */
+  .section { padding: 80px 40px; }
+  .section-bg { background: var(--section-bg); }
+  .section-label {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--red); font-weight: 700; margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 44px); line-height: 1.2; color: var(--ink);
+    max-width: 560px; margin-bottom: 48px;
+  }
+  .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px; }
+  .course-card {
+    background: var(--white); padding: 40px 36px;
+    border-left: 3px solid transparent; transition: border-color .2s, box-shadow .2s;
+    position: relative; overflow: hidden;
+  }
+  .course-card:hover { border-left-color: var(--red); box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+  .course-card-zh {
+    font-family: 'Noto Serif SC', serif; font-size: 48px;
+    color: rgba(192,57,43,0.1); position: absolute; top: 20px; right: 24px;
+    line-height: 1; pointer-events: none;
+  }
+  .course-icon { width: 44px; height: 44px; background: var(--red); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; }
+  .course-icon svg { width: 20px; height: 20px; fill: white; }
+  .course-tag { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--red); font-weight: 700; margin-bottom: 10px; }
+  .course-name { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--ink); margin-bottom: 12px; line-height: 1.2; }
+  .course-desc { color: var(--ink-muted); font-size: 14px; line-height: 1.7; margin-bottom: 24px; }
+  .course-link { color: var(--red); font-size: 13px; font-weight: 600; text-decoration: none; letter-spacing: 0.04em; }
+  .course-link:hover { text-decoration: underline; }
+
+  /* WHY */
+  .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; }
+  .why-item { display: flex; gap: 20px; align-items: flex-start; }
+  .why-num { font-family: 'Noto Serif SC', serif; font-size: 42px; color: var(--red); line-height: 1; opacity: 0.25; flex-shrink: 0; width: 48px; }
+  .why-title { font-weight: 700; font-size: 15px; color: var(--ink); margin-bottom: 8px; }
+  .why-desc { font-size: 13px; color: var(--ink-muted); line-height: 1.65; }
+
+  /* PROGRAMME */
+  .programme-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 0; min-height: 480px; }
+  .programme-left { background: var(--red); padding: 60px 48px; display: flex; flex-direction: column; justify-content: center; }
+  .programme-left .section-label { color: rgba(255,255,255,0.6); }
+  .programme-left .section-title { color: white; max-width: 100%; margin-bottom: 32px; }
+  .programme-left p { color: rgba(255,255,255,0.75); font-size: 15px; line-height: 1.7; margin-bottom: 32px; }
+  .btn-white { background: white; color: var(--red); padding: 13px 28px; border: none; font-size: 13px; font-weight: 700; letter-spacing: 0.05em; cursor: pointer; border-radius: 3px; text-decoration: none; display: inline-block; transition: opacity .2s; }
+  .btn-white:hover { opacity: 0.9; }
+  .programme-right { background: var(--ink); padding: 60px 48px; display: flex; flex-direction: column; justify-content: center; }
+  .programme-list { list-style: none; }
+  .programme-list li {
+    color: rgba(255,255,255,0.75); font-size: 15px; padding: 16px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 16px;
+  }
+  .programme-list li::before {
+    content: '汉'; font-family: 'Noto Serif SC', serif; color: var(--red); font-size: 18px; flex-shrink: 0;
+  }
+
+  /* TESTIMONIALS */
+  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+  .review-card {
+    background: var(--white); border: 1px solid var(--border); padding: 32px;
+    border-radius: 2px; position: relative;
+  }
+  .review-card::before {
+    content: '"'; font-family: 'Playfair Display', serif; font-size: 80px;
+    color: var(--red); opacity: 0.15; position: absolute; top: 16px; left: 24px; line-height: 1;
+  }
+  .review-text { font-size: 15px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 24px; padding-top: 24px; }
+  .review-author { display: flex; align-items: center; gap: 14px; }
+  .review-avatar {
+    width: 44px; height: 44px; border-radius: 50%; background: var(--red);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Noto Serif SC', serif; font-size: 20px; color: white; flex-shrink: 0;
+  }
+  .review-name { font-weight: 700; font-size: 14px; color: var(--ink); }
+  .review-meta { font-size: 12px; color: var(--ink-muted); margin-top: 2px; }
+
+  /* TEAM */
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 24px; }
+  .team-card { text-align: center; }
+  .team-photo {
+    width: 100%; aspect-ratio: 1; background: var(--section-bg); border-radius: 4px;
+    display: flex; align-items: center; justify-content: center; margin-bottom: 16px; overflow: hidden;
+  }
+  .team-photo-zh { font-family: 'Noto Serif SC', serif; font-size: 64px; color: var(--red); opacity: 0.3; }
+  .team-name { font-weight: 700; font-size: 15px; color: var(--ink); margin-bottom: 6px; }
+  .team-role { font-size: 12px; color: var(--red); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+  .team-bio { font-size: 13px; color: var(--ink-muted); line-height: 1.6; }
+
+  /* CITIES */
+  .cities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2px; }
+  .city-card {
+    background: var(--ink); padding: 36px 28px; position: relative; overflow: hidden;
+    transition: background .25s;
+  }
+  .city-card:hover { background: #2a2a2a; }
+  .city-bg-zh {
+    position: absolute; bottom: -10px; right: -10px;
+    font-family: 'Noto Serif SC', serif; font-size: 80px;
+    color: rgba(255,255,255,0.04); line-height: 1; pointer-events: none;
+  }
+  .city-name { font-family: 'Playfair Display', serif; font-size: 22px; color: white; margin-bottom: 10px; }
+  .city-address { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.6; margin-bottom: 14px; }
+  .city-phone { font-size: 13px; color: var(--gold); font-weight: 600; text-decoration: none; }
+
+  /* FORM */
+  .form-section {
+    background: var(--ink); padding: 80px 40px; text-align: center;
+  }
+  .form-section .section-label { color: rgba(255,255,255,0.5); }
+  .form-section .section-title { color: white; max-width: 480px; margin: 0 auto 40px; }
+  .contact-form { max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+  .contact-form input, .contact-form select {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15);
+    color: white; padding: 14px 18px; font-size: 14px; font-family: 'Inter', sans-serif;
+    border-radius: 3px; outline: none; width: 100%; transition: border-color .2s;
+  }
+  .contact-form input::placeholder { color: rgba(255,255,255,0.35); }
+  .contact-form input:focus { border-color: var(--red); }
+  .contact-form select { color: rgba(255,255,255,0.65); }
+  .contact-form select option { background: #1A1A1A; color: white; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  /* PARTNERS */
+  .partners-row { display: flex; flex-wrap: wrap; gap: 32px; align-items: center; justify-content: center; }
+  .partner-badge {
+    background: var(--white); border: 1px solid var(--border); padding: 16px 28px;
+    font-size: 13px; font-weight: 700; color: var(--ink-muted); letter-spacing: 0.05em;
+    border-radius: 2px; text-align: center;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #111; padding: 60px 40px 32px;
+  }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+  .footer-logo-char { font-family: 'Noto Serif SC', serif; font-size: 40px; color: var(--red); line-height: 1; margin-bottom: 8px; }
+  .footer-logo-name { color: white; font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+  .footer-desc { color: rgba(255,255,255,0.4); font-size: 13px; line-height: 1.7; }
+  .footer-col h4 { color: white; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 20px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col a { color: rgba(255,255,255,0.45); font-size: 13px; text-decoration: none; transition: color .2s; }
+  .footer-col a:hover { color: var(--gold); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: gap; }
+  .footer-copy { color: rgba(255,255,255,0.3); font-size: 12px; }
+  .footer-socials { display: flex; gap: 16px; }
+  .footer-social {
+    width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.15); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.4);
+    text-decoration: none; font-size: 13px; font-weight: 700; transition: border-color .2s, color .2s;
+  }
+  .footer-social:hover { border-color: var(--red); color: var(--red); }
+
+  /* MARQUEE */
+  .marquee-wrap { background: var(--red); padding: 14px 0; overflow: hidden; white-space: nowrap; }
+  .marquee-inner { display: inline-block; animation: marquee 20s linear infinite; }
+  .marquee-inner span { font-family: 'Noto Serif SC', serif; font-size: 20px; color: rgba(255,255,255,0.6); margin: 0 24px; }
+  @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+  /* HSK BAND */
+  .hsk-band {
+    background: var(--paper); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    padding: 24px 40px; display: flex; align-items: center; gap: 16px; justify-content: center; flex-wrap: wrap;
+  }
+  .hsk-label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-muted); font-weight: 600; }
+  .hsk-levels { display: flex; gap: 8px; }
+  .hsk-level {
+    width: 40px; height: 40px; border-radius: 50%; background: var(--white);
+    border: 2px solid var(--border); display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: var(--ink-muted); transition: all .2s; cursor: default;
+  }
+  .hsk-level.active { background: var(--red); border-color: var(--red); color: white; }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .burger { display: flex; }
+    .hero { padding: 80px 24px 48px; }
+    .hero-stats { gap: 24px; flex-wrap: wrap; }
+    .section { padding: 56px 24px; }
+    .programme-wrap { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <span class="nav-logo-char">汉</span>
+    <span class="nav-logo-text">CHINESE.KZ</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#courses">Программы</a></li>
+    <li><a href="#why">О нас</a></li>
+    <li><a href="#reviews">Отзывы</a></li>
+    <li><a href="#team">Команда</a></li>
+    <li><a href="#cities">Города</a></li>
+    <li><a href="#contact">Контакты</a></li>
+  </ul>
+  <a href="tel:+77010637888" class="nav-phone">+7 701 063 7 888</a>
+  <div class="burger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-char">汉</div>
+  <div class="hero-content">
+    <div class="hero-badge">★ Лучший центр китайского языка — Financial Times</div>
+    <div class="hero-subtitle-zh">学习汉语 · 通向未来</div>
+    <h1 class="hero-title">Курсы<br><em>китайского</em><br>языка</h1>
+    <p class="hero-desc">Получите сертификат HSK и откройте путь в ведущие университеты Китая — не покидая Казахстана. Первый результат уже через 60 дней.</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">Записаться на курс</a>
+      <a href="#courses" class="btn-outline">Все программы</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">12<span>+</span></div>
+        <div class="hero-stat-label">Лет опыта</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">18<span></span></div>
+        <div class="hero-stat-label">Филиалов в Казахстане</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">5000<span>+</span></div>
+        <div class="hero-stat-label">Выпускников</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HSK BAND -->
+<div class="hsk-band">
+  <span class="hsk-label">Подготовка к HSK</span>
+  <div class="hsk-levels">
+    <div class="hsk-level active">1</div>
+    <div class="hsk-level active">2</div>
+    <div class="hsk-level active">3</div>
+    <div class="hsk-level active">4</div>
+    <div class="hsk-level">5</div>
+    <div class="hsk-level">6</div>
+  </div>
+  <span style="color:var(--ink-muted);font-size:13px;">— международный экзамен по китайскому языку</span>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <span>你好</span><span>学习</span><span>汉语</span><span>中国</span><span>成功</span><span>教育</span><span>语言</span><span>文化</span>
+    <span>你好</span><span>学习</span><span>汉语</span><span>中国</span><span>成功</span><span>教育</span><span>语言</span><span>文化</span>
+  </div>
+</div>
+
+<!-- COURSES -->
+<section class="section" id="courses">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-label">Наши программы</div>
+    <h2 class="section-title">Выберите подходящий курс</h2>
+    <div class="courses-grid">
+      <div class="course-card">
+        <div class="course-card-zh">业</div>
+        <div class="course-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 7H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm0 12H4V9h16v10zM4 3h16v2H4z"/></svg>
+        </div>
+        <div class="course-tag">Для взрослых</div>
+        <div class="course-name">Практический курс</div>
+        <p class="course-desc">Стартовый курс для новичков с нуля. Живое общение, практика и реальный результат в короткие сроки.</p>
+        <a href="#contact" class="course-link">Подробнее →</a>
+      </div>
+      <div class="course-card">
+        <div class="course-card-zh">商</div>
+        <div class="course-icon">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+        </div>
+        <div class="course-tag">Для бизнеса</div>
+        <div class="course-name">Бизнес-китайский</div>
+        <p class="course-desc">Идеальный вариант для тех, кто строит деловые связи с Китаем. Переговоры, документация, деловая переписка.</p>
+        <a href="#contact" class="course-link">Подробнее →</a>
+      </div>
+      <div class="course-card">
+        <div class="course-card-zh">童</div>
+        <div class="course-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        </div>
+        <div class="course-tag">Для детей</div>
+        <div class="course-name">Китайский для детей</div>
+        <p class="course-desc">Лучшая инвестиция в ребёнка — это новые знания. Игровая методика, носители языка, быстрый прогресс.</p>
+        <a href="#contact" class="course-link">Подробнее →</a>
+      </div>
+      <div class="course-card">
+        <div class="course-card-zh">础</div>
+        <div class="course-icon">
+          <svg viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
+        </div>
+        <div class="course-tag">Сертификат</div>
+        <div class="course-name">Программа Foundation</div>
+        <p class="course-desc">Интенсивный курс с сертификатом престижного китайского университета. Поступление в вузы Китая на грантовой основе.</p>
+        <a href="#contact" class="course-link">Подробнее →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="section section-bg" id="why">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-label">Почему выбирают нас</div>
+    <h2 class="section-title">Chinese.kz — лидер отрасли в Казахстане</h2>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-num">壹</div>
+        <div>
+          <div class="why-title">18 филиалов по всей стране</div>
+          <p class="why-desc">Республиканская сеть языковых центров в Астане, Алматы, Актобе, Шымкенте, Таразе и других городах.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">贰</div>
+        <div>
+          <div class="why-title">Аккредитация международного уровня</div>
+          <p class="why-desc">Аккредитованы Ассоциацией Университетов Стран Шёлкового Пути. Признаны "Лучшим центром СНГ" по версии Financial Times.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">叁</div>
+        <div>
+          <div class="why-title">Носители языка онлайн и офлайн</div>
+          <p class="why-desc">Занятия с нативными преподавателями из Китая — не выезжая из Казахстана. Видимый результат за 60 дней.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">肆</div>
+        <div>
+          <div class="why-title">Партнёрство с Hanban и UnionPay</div>
+          <p class="why-desc">Сотрудничаем с мировой сетью Институтов Конфуция. Выпускаем банковские карты UnionPay для студентов.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">伍</div>
+        <div>
+          <div class="why-title">Собственный издательский дом</div>
+          <p class="why-desc">Разрабатываем учебные материалы специально для казахстанских студентов с учётом местного контекста.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">陆</div>
+        <div>
+          <div class="why-title">Поступление в вузы Китая</div>
+          <p class="why-desc">Наш диплом даёт возможность поступить в университеты Китая на грант. Тысячи успешных выпускников.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMME -->
+<section id="programme">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="programme-wrap">
+      <div class="programme-left">
+        <div class="section-label">Программа Foundation</div>
+        <h2 class="section-title">Сертификат китайского университета — в Казахстане</h2>
+        <p>Уникальная программа, созданная специально для казахстанских студентов. Интенсивный курс, который готовит вас к поступлению в ведущие вузы Китая по грантам — без необходимости уезжать на год.</p>
+        <a href="#contact" class="btn-white">Узнать подробнее</a>
+      </div>
+      <div class="programme-right">
+        <ul class="programme-list">
+          <li>Интенсивный курс китайского языка</li>
+          <li>Уникальная программа для Казахстана</li>
+          <li>Сертификат престижного китайского университета</li>
+          <li>Поступление в вузы Китая на грантовой основе</li>
+          <li>Занятия с носителями языка</li>
+          <li>Подготовка к экзамену HSK 1–4</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section section-bg" id="reviews">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-label">Отзывы студентов</div>
+    <h2 class="section-title">Что говорят наши выпускники</h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <p class="review-text">Если бы мне в детстве сказали, что я получу сертификат первого уровня китайского языка — я бы не поверила! Команда Chinese.kz сделала это возможным.</p>
+        <div class="review-author">
+          <div class="review-avatar">A</div>
+          <div>
+            <div class="review-name">Александра Иванова</div>
+            <div class="review-meta">Выпускница, HSK 1</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <p class="review-text">А почему бы и нет? Я была готова на большие перемены, и Chinese.kz полностью изменил мой взгляд на изучение языков. Методика работает!</p>
+        <div class="review-author">
+          <div class="review-avatar">Д</div>
+          <div>
+            <div class="review-name">Диана Мырзахметова</div>
+            <div class="review-meta">Студентка практического курса</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <p class="review-text">Начал с нуля, сейчас веду переговоры с китайскими партнёрами на их языке. За 8 месяцев прошёл путь от "нихао" до уверенного делового общения.</p>
+        <div class="review-author">
+          <div class="review-avatar">Б</div>
+          <div>
+            <div class="review-name">Бахтияр Сейткали</div>
+            <div class="review-meta">Бизнес-китайский, Астана</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="section" id="team">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-label">Наша команда</div>
+    <h2 class="section-title">Преподаватели и сотрудники</h2>
+    <p style="color:var(--ink-muted);font-size:15px;line-height:1.7;max-width:560px;margin-bottom:48px;">Основной принцип нашей команды — постоянная работа над собой и приобретение новых навыков для лучшего удовлетворения интересов наших клиентов.</p>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-photo"><div class="team-photo-zh">丹</div></div>
+        <div class="team-name">Дана</div>
+        <div class="team-role">Менеджер</div>
+        <p class="team-bio">Любезно встретит вас и ответит на все вопросы. Долгое время жила в США и Польше.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-photo"><div class="team-photo-zh">阿</div></div>
+        <div class="team-name">Асхат</div>
+        <div class="team-role">Преподаватель</div>
+        <p class="team-bio">Ведёт занятия по особой авторской методике. Студенты успешно сдают экзамены.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-photo"><div class="team-photo-zh">卡</div></div>
+        <div class="team-name">Камила</div>
+        <div class="team-role">Преподаватель</div>
+        <p class="team-bio">Строгая, но обаятельная. Особенно её ценят корпоративные клиенты за требовательность.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-photo"><div class="team-photo-zh">扎</div></div>
+        <div class="team-name">Жанат</div>
+        <div class="team-role">Преподаватель</div>
+        <p class="team-bio">Владеет несколькими языками. Поможет стать настоящим полиглотом каждому студенту.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-photo"><div class="team-photo-zh">雅</div></div>
+        <div class="team-name">Ярослава</div>
+        <div class="team-role">Менеджер качества</div>
+        <p class="team-bio">Немецкие корни помогли довести сервис до совершенства. Не терпит компромиссов.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-photo"><div class="team-photo-zh">扎</div></div>
+        <div class="team-name">Жаннур</div>
+        <div class="team-role">Преподаватель</div>
+        <p class="team-bio">Позитив в чистом виде. Объясняет материал сколько угодно раз и никогда не теряет терпения.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CITIES -->
+<section class="section" id="cities" style="background:var(--paper);padding-top:80px;padding-bottom:0;">
+  <div style="max-width:1200px;margin:0 auto;padding-bottom:0;">
+    <div class="section-label">Наши города</div>
+    <h2 class="section-title">Filiali во всём Казахстане</h2>
+  </div>
+  <div class="cities-grid" style="max-width:1200px;margin:0 auto;margin-top:24px;">
+    <div class="city-card">
+      <div class="city-bg-zh">阿</div>
+      <div class="city-name">Астана</div>
+      <div class="city-address">Центральный район</div>
+      <a href="tel:+77010637888" class="city-phone">+7 701 063 7 888</a>
+    </div>
+    <div class="city-card">
+      <div class="city-bg-zh">阿</div>
+      <div class="city-name">Алматы</div>
+      <div class="city-address">Шевченко 162/7</div>
+      <a href="tel:+77010637888" class="city-phone">+7 701 063 7 888</a>
+    </div>
+    <div class="city-card">
+      <div class="city-bg-zh">卡</div>
+      <div class="city-name">Караганда</div>
+      <div class="city-address">ул. Ермекова 120/2</div>
+      <a href="tel:+77075653888" class="city-phone">+7 707 565 3 888</a>
+    </div>
+    <div class="city-card">
+      <div class="city-bg-zh">阿</div>
+      <div class="city-name">Актобе</div>
+      <div class="city-address">ул. 101 Стрелковой бригады, 2А</div>
+      <a href="tel:+77071145292" class="city-phone">+7 707 114 5 292</a>
+    </div>
+    <div class="city-card">
+      <div class="city-bg-zh">希</div>
+      <div class="city-name">Шымкент</div>
+      <div class="city-address">ул. Иляева 18, БЦ Парасат</div>
+      <a href="tel:+77078395888" class="city-phone">+7 707 839 5 888</a>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="section" style="background:var(--paper);">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-label" style="text-align:center;margin-bottom:32px;">Наши партнёры</div>
+    <div class="partners-row">
+      <div class="partner-badge">Huawei</div>
+      <div class="partner-badge">KazNU</div>
+      <div class="partner-badge">Hanban</div>
+      <div class="partner-badge">UnionPay</div>
+      <div class="partner-badge">ICBC</div>
+      <div class="partner-badge">KazMunayGas</div>
+      <div class="partner-badge">Financial Times</div>
+      <div class="partner-badge">Шёлковый Путь</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT FORM -->
+<section class="form-section" id="contact">
+  <div class="section-label">Записаться</div>
+  <h2 class="section-title">Начните изучать китайский сегодня</h2>
+  <form class="contact-form" onsubmit="submitForm(event)">
+    <div class="form-row">
+      <input type="text" placeholder="Ваше имя" required>
+      <input type="tel" placeholder="Номер телефона" required>
+    </div>
+    <input type="email" placeholder="Email (необязательно)">
+    <select>
+      <option value="" disabled selected>Выберите программу</option>
+      <option>Практический курс (с нуля)</option>
+      <option>Бизнес-китайский</option>
+      <option>Китайский для детей</option>
+      <option>Программа Foundation</option>
+      <option>Подготовка к HSK</option>
+    </select>
+    <select>
+      <option value="" disabled selected>Выберите город</option>
+      <option>Астана</option>
+      <option>Алматы</option>
+      <option>Караганда</option>
+      <option>Актобе</option>
+      <option>Шымкент</option>
+    </select>
+    <button type="submit" class="btn-primary" style="margin-top:8px;font-size:15px;padding:16px;">Отправить заявку</button>
+    <p style="color:rgba(255,255,255,0.3);font-size:12px;margin-top:8px;">Мы свяжемся с вами в течение рабочего дня</p>
+  </form>
+  <div id="form-success" style="display:none;margin-top:24px;color:var(--gold);font-size:16px;font-weight:600;">✓ Заявка отправлена! Мы свяжемся с вами скоро.</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo-char">汉</div>
+        <div class="footer-logo-name">Chinese.kz</div>
+        <p class="footer-desc">Лучший центр китайского языка в СНГ по версии Financial Times. 12 лет опыта, 18 филиалов, тысячи успешных выпускников.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Курсы</h4>
+        <ul>
+          <li><a href="#courses">Практический курс</a></li>
+          <li><a href="#courses">Бизнес-китайский</a></li>
+          <li><a href="#courses">Для детей</a></li>
+          <li><a href="#courses">Foundation</a></li>
+          <li><a href="#courses">Подготовка к HSK</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Компания</h4>
+        <ul>
+          <li><a href="#why">О нас</a></li>
+          <li><a href="#team">Преподаватели</a></li>
+          <li><a href="#reviews">Отзывы</a></li>
+          <li><a href="#cities">Филиалы</a></li>
+          <li><a href="#contact">Вакансии</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Контакты</h4>
+        <ul>
+          <li><a href="tel:+77010637888">+7 701 063 7 888</a></li>
+          <li><a href="mailto:info@chinese.kz">info@chinese.kz</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2024 Chinese.kz · Все права защищены</span>
+      <div class="footer-socials">
+        <a href="#" class="footer-social">f</a>
+        <a href="#" class="footer-social">in</a>
+        <a href="#" class="footer-social">yt</a>
+        <a href="#" class="footer-social">vk</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  async function submitForm(e) {
+    e.preventDefault();
+    const form = document.querySelector('.contact-form');
+    const btn = form.querySelector('button[type="submit"]');
+    const inputs = form.querySelectorAll('input, select');
+
+    // Collect data
+    const data = {
+      name: inputs[0].value,
+      phone: inputs[1].value,
+      email: inputs[2].value,
+      program: inputs[3].value,
+      city: inputs[4].value,
+      source: 'Сайт Chinese.kz',
+      date: new Date().toLocaleString('ru-RU', { timeZone: 'Asia/Almaty' })
+    };
+
+    // Loading state
+    btn.textContent = 'Отправляем...';
+    btn.disabled = true;
+    btn.style.opacity = '0.7';
+
+    try {
+      await fetch('https://hook.eu2.make.com/3edv01cy48ebidebpjic0vk8v4w5ph6w', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      // Success
+      form.style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+    } catch (err) {
+      // Error fallback
+      btn.textContent = 'Ошибка. Попробуйте ещё раз';
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      btn.style.background = '#888';
+    }
+  }
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.background = window.scrollY > 50 ? 'rgba(26,26,26,0.98)' : 'rgba(26,26,26,0.97)';
+  });
+</script>
+</body>
+</html>
